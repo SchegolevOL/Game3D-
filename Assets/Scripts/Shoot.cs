@@ -5,14 +5,18 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
 
-    [SerializeField] GameObject bullet;
+    [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform shootPoint;
+    [SerializeField] float power;
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(bullet, shootPoint.position, bullet.transform.rotation);
+            GameObject newBullet = Instantiate(bulletPrefab, shootPoint.position, bulletPrefab.transform.rotation);
+
+            newBullet.GetComponent<Rigidbody>().AddForce(shootPoint.forward 
+                                                         * power * Time.deltaTime, ForceMode.Impulse);
         }
     }
 
